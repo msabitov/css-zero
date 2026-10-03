@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build output
+packages/*/dist/
+examples/*/dist/
+
+# TypeScript incremental builds
+*.tsbuildinfo
+
+# Compiled artifacts accidentally emitted into source dirs
+packages/*/src/**/*.js
+packages/*/src/**/*.jsx
+packages/*/src/**/*.ts.js
+packages/*/src/**/*.d.ts
+packages/*/src/**/*.js.map
+packages/*/src/**/*.d.ts.map
+packages/*/src/**/*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json

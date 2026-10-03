@@ -1,0 +1,53 @@
+{
+    "name": "@css-zero/vite-plugin",
+    "version": "1.0.0",
+    "description": "CSS-Zero Vite plugin",
+    "license": "Apache-2.0",
+    "author": "Marat Sabitov",
+    "publishConfig": {
+        "access": "public"
+    },
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json"
+    },
+    "dependencies": {
+        "@css-zero/compiler": "workspace:*"
+    },
+    "peerDependencies": {
+        "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
+    },
+    "keywords": [
+        "ui",
+        "user interface",
+        "front-end",
+        "typescript",
+        "css",
+        "css-in-js",
+        "css-in-ts",
+        "zero-runtime",
+        "css-zero",
+        "vite",
+        "vite-plugin"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/msabitov/css-zero"
+    },
+    "homepage": "https://effnd.tech/css-zero/"
+}

@@ -1,0 +1,8 @@
+packages:
+    - 'packages/*'
+    - 'examples/*'
+
+# Allow build scripts for selected dependencies (pnpm 12 policy).
+# esbuild is required by vite: without its install script the native binary is not fetched.
+allowBuilds:
+    esbuild: true

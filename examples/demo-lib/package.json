@@ -1,0 +1,52 @@
+{
+    "name": "@css-zero/demo-lib",
+    "version": "1.0.0",
+    "private": true,
+    "description": "CSS-Zero styles demo library",
+    "type": "module",
+    "license": "Apache-2.0",
+    "author": "Marat Sabitov",
+    "sideEffects": false,
+    "exports": {
+        "./buttons": {
+            "types": "./dist/types/buttons.css.d.ts",
+            "import": "./dist/buttons.css.js"
+        },
+        "./indents": {
+            "types": "./dist/types/indents.css.d.ts",
+            "import": "./dist/indents.css.js"
+        },
+        "./vars": {
+            "types": "./dist/types/vars.css.d.ts",
+            "import": "./dist/vars.css.js"
+        }
+    },
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md",
+        "package.json"
+    ],
+    "scripts": {
+        "build": "vite build && tsc -p tsconfig.json"
+    },
+    "devDependencies": {
+        "@rollup/plugin-terser": "^0.4.4",
+        "rollup": "4.0.0",
+        "typescript": "^5.5.0",
+        "vite": "^5.4.0"
+    },
+    "peerDependencies": {
+        "@css-zero/core": "workspace:*"
+    },
+    "keywords": [
+        "ui",
+        "user interface",
+        "css-in-ts",
+        "css-zero"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/msabitov/css-zero"
+    }
+}

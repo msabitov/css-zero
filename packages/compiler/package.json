@@ -1,0 +1,63 @@
+{
+    "name": "@css-zero/compiler",
+    "version": "1.0.0",
+    "description": "CSS-Zero compiler package",
+    "type": "module",
+    "license": "Apache-2.0",
+    "author": "Marat Sabitov",
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "dist"
+    ],
+    "scripts": {
+        "build": "rollup -c",
+        "test": "vitest run"
+    },
+    "dependencies": {
+        "@babel/generator": "^7.24.0",
+        "@babel/parser": "^7.24.0",
+        "@babel/traverse": "^7.24.0",
+        "@babel/types": "^7.24.0",
+        "esbuild": "^0.20.0",
+        "magic-string": "^0.30.0"
+    },
+    "devDependencies": {
+        "@rollup/plugin-terser": "^1.0.0",
+        "@rollup/plugin-typescript": "^12.3.0",
+        "rollup-plugin-cleaner": "^1.0.0",
+        "rollup": "^4.63.4",
+        "tslib": "^2.8.1",
+        "vitest": "^5.0.1"
+    },
+    "keywords": [
+        "ui",
+        "user interface",
+        "front-end",
+        "typescript",
+        "css",
+        "css-in-js",
+        "css-in-ts",
+        "zero-runtime",
+        "css-zero",
+        "compiler"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/msabitov/css-zero"
+    },
+    "homepage": "https://effnd.tech/css-zero/"
+}

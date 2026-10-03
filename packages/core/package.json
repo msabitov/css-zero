@@ -1,0 +1,55 @@
+{
+    "name": "@css-zero/core",
+    "version": "1.0.0",
+    "description": "CSS-Zero core package",
+    "type": "module",
+    "license": "Apache-2.0",
+    "author": "Marat Sabitov",
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "dist"
+    ],
+    "scripts": {
+        "build": "rollup -c"
+    },
+    "dependencies": {
+        "csstype": "3.1.3"
+    },
+    "devDependencies": {
+        "@rollup/plugin-terser": "^1.0.0",
+        "@rollup/plugin-typescript": "^12.3.0",
+        "rollup-plugin-cleaner": "^1.0.0",
+        "rollup": "^4.63.4",
+        "tslib": "^2.8.1"
+    },
+    "keywords": [
+        "ui",
+        "user interface",
+        "front-end",
+        "typescript",
+        "css",
+        "css-in-js",
+        "css-in-ts",
+        "zero-runtime",
+        "css-zero"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/msabitov/css-zero"
+    },
+    "homepage": "https://effnd.tech/css-zero/"
+}
