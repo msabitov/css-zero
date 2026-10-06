@@ -111,7 +111,7 @@ export type Id = (rule?: CSSZero.Rule) => string;
 /**
  * Create id and derived selector
  * @param rule - rule content
- * @returns `[token, selector]` tuple
+ * @returns `[token, #token]` tuple
  */
 export type IdSelector = (rule?: CSSZero.Rule) => [string, string];
 /**
@@ -123,13 +123,13 @@ export type ClassName = (rule?: CSSZero.Rule) => string;
 /**
  * Create classname and derived selector
  * @param rule - rule content
- * @returns `[token, selector]` tuple
+ * @returns `[token, .token]` tuple
  */
 export type ClassSelector = (rule?: CSSZero.Rule) => [string, string];
 /**
  * Create variable (custom property)
  * @param config - variable config or value
- * @returns `[name, var(name)]` tuple
+ * @returns `[--token, var(--token)]` tuple
  */
 export type Variable = (
     config?: CSSZero.VariableConfig | string | number | boolean | null
@@ -149,12 +149,12 @@ export type Font = (config?: CSSZero.FontConfig | string) => string;
 /**
  * Create container (@container)
  * @param type - container type
- * @returns `[container, query]` tuple
+ * @returns `['token / container type', '@container token']` tuple
  */
 export type Container = (type?: CSSZero.ContainerType) => [string, string];
 /**
  * Create layer (@layer)
- * @returns Unique cascade layer selector
+ * @returns Unique layer selector '@layer token'
  */
 export type Layer = () => string;
 /**
@@ -172,7 +172,7 @@ export type Style = (content: CSSZero.StyleSheet, deps?: string[]) => string;
  * Create style variants
  * @param config - style variations
  * @param base - optional base token
- * @return object with mapped variants and selectors
+ * @return object with mapped variants and selectors `{ primary: 'token1', ghost: 'token2' }`
  */
 export type Variants = <T extends string>(
     config: Record<T, CSSZero.Rule>,
@@ -197,16 +197,16 @@ export type Theme = <T extends string, O extends string>(
  * @returns Unique id token
  *
  * @example
- * `const badge = id({ backgroundColor: 'red' });` // → '@/badge...'
+ * `const badge = id({ backgroundColor: 'red' });` // 'o-i_1'
  */
 export const id: Id = (_) => '';
 /**
  * Create id and derived selector
  * @param rule - rule content
- * @returns `[token, selector]` tuple
+ * @returns `[token, #token]` tuple
  *
  * @example
- * `const [id, selector] = idSelector({ backgroundColor: 'red' });` // selector = '#o-i_1'
+ * `const [id, selector] = idSelector({ backgroundColor: 'red' });` // ['o-i_1', '#o-i_1']
  */
 export const idSelector: IdSelector = (_) => ['', ''];
 /**
@@ -215,22 +215,22 @@ export const idSelector: IdSelector = (_) => ['', ''];
  * @returns Unique classname token
  *
  * @example
- * `const btn = className({ color: 'white' });` // → 'o-s_1' (runtime: '')
+ * `const btn = className({ color: 'white' });` // 'o-s_1'
  */
 export const className: ClassName = (_) => '';
 /**
  * Create classname and derived selector
  * @param rule - rule content
- * @returns `[token, selector]` tuple
+ * @returns `[token, .token]` tuple
  *
  * @example
- * `const [name, selector] = classSelector({ display: 'grid' });` // selector = '.o-s_1'
+ * `const [name, selector] = classSelector({ display: 'grid' });` // ['o-s_1', '.o-s_1']
  */
 export const classSelector: ClassSelector = (_) => ['', ''];
 /**
  * Create variable (custom property)
  * @param config - variable config or value
- * @returns `[name, var(name)]` tuple
+ * @returns `[--token, var(--token)]` tuple
  *
  * @example
  * `const [accent, varAccent] = variable('#ff0');` // ['--o-v_1', 'var(--o-v_1)']
@@ -242,15 +242,15 @@ export const variable: Variable = (_) => ['', ''];
  * @returns Unique keyframes token
  *
  * @example
- * `const spin = animation({ from: { transform: 'rotate(0)' }, to: { transform: 'rotate(360deg)' } });`
+ * `const spin = animation({ from: { transform: 'rotate(0)' }, to: { transform: 'rotate(360deg)' } });` // 'o-a_1'
  */
 export const animation: Animation = (_) => '';
 /**
  * Create layer (@layer)
- * @returns Unique cascade layer selector
+ * @returns Unique layer selector '@layer token'
  *
  * @example
- * `const base = layer();` // → '@layer o-l_1'
+ * `const base = layer();` // '@layer o-l_1'
  */
 export const layer: Layer = () => '';
 /**
@@ -259,13 +259,13 @@ export const layer: Layer = () => '';
  * @returns Unique font-family token
  *
  * @example
- * `const Inter = font({ src: "url('/inter.woff2')" });`
+ * `const Inter = font({ src: "url('/inter.woff2')" });` // 'o-f_1'
  */
 export const font: Font = (_) => '';
 /**
  * Create container (@container)
  * @param type - container type
- * @returns `[container, query]` tuple
+ * @returns `['token / container type', '@container token']` tuple
  *
  * @example
  * `const [card, cardRef] = container('inline-size');` // ['o-c_1 / inline-size', '@container o-c_1']
@@ -293,7 +293,7 @@ export const style: Style = (_, __) => '';
  * Create style variants
  * @param config - style variations
  * @param base - optional base token
- * @return object with mapped variants and selectors
+ * @return object with mapped variants and selectors `{ primary: 'token1', ghost: 'token2' }`
  *
  * @example
  * `const tone = variants({ primary: { color: '#fff' }, ghost: { color: 'gray' } }, btn);`

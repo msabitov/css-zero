@@ -4,10 +4,12 @@
 import type { ModuleNode, Plugin } from 'vite';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { posix } from 'node:path';
-import { createCompiler } from '@css-zero/compiler';
+import { createCompiler, SCOPE } from '@css-zero/compiler';
 
-const VIRTUAL_CSS = `\0css-zero:global.css`;
-const PREFIX_CSS = `css-zero:`;
+const VIRTUAL_CSS = `\0${SCOPE}:global.css`;
+const PREFIX_CSS = SCOPE + ':';
+const CSS_FILE = SCOPE + '.css';
+const TAG_REGEXP = new RegExp(`<link[^>]*data-${SCOPE}[^>]*>|<style[^>]*data-${SCOPE}[\s\S]*?<\/style>`, 'gi');
 
 // A built entry in the output bundle
 interface OutputEntry {
@@ -19,7 +21,7 @@ interface OutputEntry {
 
 export interface CSSZeroViteOptions {
     /**
-     * Name prefix for every token (default 'o'); validated against /^[a-z][a-zA-Z0-9]*$/
+     * Name prefix for every token (default 'o'); validated against /^[a-z][a-zA-Z0-9-]*$/
      */
     prefix?: string;
     /**
@@ -52,13 +54,13 @@ export function cssZero(opts: CSSZeroViteOptions = {}): Plugin {
         callbacks: {
             // Vite dev serves files outside the project root via the `/@fs/`
             // prefix; strip it so ids match plain filesystem paths.
-            normalizeModuleId: (id) =>
+            normalizeModuleId: (id: string) =>
                 id.startsWith('/@fs/') ? id.slice('/@fs/'.length) : id,
         },
     });
 
     const plugin: Plugin = {
-        name: 'css-zero',
+        name: SCOPE,
         enforce: 'pre',
 
         configResolved(config) {
@@ -72,9 +74,9 @@ export function cssZero(opts: CSSZeroViteOptions = {}): Plugin {
 
         buildStart() {
             // New frame: reset accumulated CSS, module bindings, and the name counter.
-            if (opts.prefix && !/^[a-z][a-zA-Z0-9]*$/.test(opts.prefix)) {
+            if (!!opts.prefix && opts.prefix !== compiler.prefix) {
                 this.warn(
-                    `Invalid prefix "${opts.prefix}" (expected /^[a-z][a-zA-Z0-9]*$/), using "o"`
+                    `Invalid prefix "${opts.prefix}" (expected /^[a-z][a-zA-Z0-9-]*$/), using "o"`
                 );
             }
             compiler.reset();
@@ -87,8 +89,8 @@ export function cssZero(opts: CSSZeroViteOptions = {}): Plugin {
 
         resolveId(id: string) {
             if (
-                id === 'css-zero.css' ||
-                id === `${base}css-zero.css` ||
+                id === CSS_FILE ||
+                id === `${base}${CSS_FILE}` ||
                 id === PREFIX_CSS
             ) {
                 return VIRTUAL_CSS;
@@ -212,7 +214,7 @@ export function cssZero(opts: CSSZeroViteOptions = {}): Plugin {
 
             this.emitFile({
                 type: 'asset',
-                fileName: `css-zero.css`,
+                fileName: CSS_FILE,
                 source: css,
             });
         },
@@ -226,8 +228,8 @@ export function cssZero(opts: CSSZeroViteOptions = {}): Plugin {
             // If there is nothing to inline, inject nothing —
             // a `<link>` would point at a file that was never emitted.
             let inject = '';
-            if (inline && inlineCss.trim()) inject = `<style data-css-zero>${inlineCss}</style>`;
-            else inject = `<link rel="stylesheet" data-css-zero href="${base}css-zero.css">`;
+            if (inline && inlineCss.trim()) inject = `<style data-${SCOPE}>${inlineCss}</style>`;
+            else inject = `<link rel="stylesheet" data-${SCOPE} href="${base}${CSS_FILE}">`;
 
             if (!inject) return;
 
@@ -241,7 +243,7 @@ export function cssZero(opts: CSSZeroViteOptions = {}): Plugin {
                 // Remove any previously injected css-zero `<link>`/`<style>`
                 // (marked with `data-css-zero`) so repeated builds don't duplicate CSS
                 const cleaned = html.replace(
-                    /<link[^>]*data-css-zero[^>]*>|<style[^>]*data-css-zero[\s\S]*?<\/style>/gi,
+                    TAG_REGEXP,
                     ''
                 );
                 const out = cleaned.includes('</head>')

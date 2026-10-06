@@ -1,6 +1,6 @@
 {
     "name": "@css-zero/core",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "CSS-Zero core package",
     "type": "module",
     "license": "Apache-2.0",

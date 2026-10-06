@@ -1,6 +1,6 @@
 {
     "name": "@css-zero/compiler",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "CSS-Zero compiler package",
     "type": "module",
     "license": "Apache-2.0",

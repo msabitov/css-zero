@@ -1,6 +1,10 @@
 import type { ChunkType, UtilityWithCounterType } from './types';
 
-export const PACKAGE_NAME = '@css-zero/core';
+/**
+ * Package scope
+ */
+export const SCOPE = 'css-zero';
+export const PACKAGE_NAME = `@${SCOPE}/core`;
 export const DEFAULT_PREFIX = 'o';
 export const ID = 'id';
 export const ID_SELECTOR = 'idSelector';

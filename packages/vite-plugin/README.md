@@ -1,8 +1,26 @@
+<p align="center">
+  <a href="https://effnd.tech/css-zero/">
+    <img alt="css-zero" src="https://effnd.tech/css-zero/logo.svg" height="256px" />
+  </a>
+</p>
+
+<h1 align="center">CSS-Zero</h1>
+
+<div align="center">
+
+[![license](https://badgen.net/static/license/Apache%202.0/blue)](https://sourcecraft.dev/msabitov/css-zero/packages/vite-plugin/browse/LICENSE?rev=master)
+[![npm latest package](https://badgen.net/npm/v/@css-zero/vite-plugin)](https://www.npmjs.com/package/@css-zero/vite-plugin)
+
 # @css-zero/vite-plugin
 
 > **Reuse-sharpened CSS-in-TS with zero runtime.**
 
-`@css-zero/vite-plugin` is the **Vite facade** of CSS-Zero. It calls [`@css-zero/compiler`](../compiler/README.md) in `transform`, aggregates CSS chunks into a single CSS asset (build) or a dev module (HMR), strips the `@css-zero/core` import, and tree-shakes CSS by token.
+- [Docs](https://effnd.tech/css-zero/)
+- [GitHub](https://github.com/msabitov/css-zero)
+- [SourceCraft](https://sourcecraft.dev/msabitov/css-zero)
+- [NPM](https://www.npmjs.com/package/@css-zero/vite-plugin)
+
+`@css-zero/vite-plugin` is the **Vite facade** of CSS-Zero. It calls [`@css-zero/compiler`](https://www.npmjs.com/package/@css-zero/compiler) in `transform`, aggregates CSS chunks into a single CSS asset (build) or a dev module (HMR), strips the `@css-zero/core` import, and tree-shakes CSS by token.
 
 ## Niche
 
@@ -11,7 +29,7 @@ CSS-Zero follows the **Tailwind model**: a single CSS file, filled during the bu
 ## Install
 
 ```bash
-pnpm add @css-zero/core @css-zero/vite-plugin
+npm i @css-zero/core @css-zero/vite-plugin
 ```
 
 ## Usage

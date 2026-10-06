@@ -24,7 +24,7 @@ import {
     orderChunks,
 } from './utils';
 
-const PREFIX_RE = /^[a-z][a-zA-Z0-9]*$/;
+const PREFIX_RE = /^[a-z][a-zA-Z0-9-]*$/;
 const GRAPH_KEY_SEP = '\u0000';
 const EMPTY_SET: ReadonlySet<string> = new Set();
 

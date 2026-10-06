@@ -15,11 +15,16 @@
 
 > **Reuse-sharpened CSS-in-TS with zero runtime**
 
+- [Docs](https://effnd.tech/css-zero/)
+- [GitHub](https://github.com/msabitov/css-zero)
+- [SourceCraft](https://sourcecraft.dev/msabitov/css-zero)
+- [NPM](https://www.npmjs.com/package/@css-zero/core)
+
 CSS-Zero is inspired by Vanilla Extract: you write styles in **contract modules** — files named `*.css.ts` / `*.css.js`. Every utility returns a plain string (or strings inside arrays/flat objects), and at build time the compiler executes the contract-module graph, substitutes each utility call with a deterministic token, and emits the matching CSS as a chunk. Unused styles are tree-shaken away, so only the CSS you actually use ships.
 
 Because contract modules are ordinary modules, you can publish your styles as separate npm packages and consume them as standard dependencies — CSS-Zero processes them the same way as your own files.
 
-`@css-zero/core` provides the **real utility types** and **string stubs** for `tsc`/IDE. It is **not the working path** — outside a bundler it returns empty strings. The working path goes through the [`@css-zero/vite-plugin`](../vite-plugin/README.md), which produces the real CSS and removes the TypeScript source files.
+`@css-zero/core` provides the **real utility types** and **string stubs** for `tsc`/IDE. It is **not the working path** — outside a bundler it returns empty strings. The working path goes through the [`@css-zero/vite-plugin`](https://www.npmjs.com/package/@css-zero/vite-plugin), which produces the real CSS and removes the TypeScript source files.
 
 ## Invariant
 
@@ -94,7 +99,7 @@ declare global {
 
 ## Important
 
-Outside a bundler (SSR, Jest, `tsc`/IDE), `@css-zero/core` returns **empty strings** — the signatures are correct, the values are placeholders. The working path goes through [`@css-zero/compiler`](../compiler/README.md) and [`@css-zero/vite-plugin`](../vite-plugin/README.md).
+Outside a bundler (SSR, Jest, `tsc`/IDE), `@css-zero/core` returns **empty strings** — the signatures are correct, the values are placeholders. The working path goes through [`@css-zero/compiler`](https://www.npmjs.com/package/@css-zero/compiler) and [`@css-zero/vite-plugin`](https://www.npmjs.com/package/@css-zero/vite-plugin).
 
 ## License
 

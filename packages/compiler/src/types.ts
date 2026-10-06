@@ -306,7 +306,7 @@ export interface CompileOptions {
  */
 export interface CSSZeroCompilerOptions {
     /**
-     * Name prefix for every token (default 'o'); validated against /^[a-z][a-zA-Z0-9]*$/
+     * Name prefix for every token (default 'o'); validated against /^[a-z][a-zA-Z0-9-]*$/
      */
     prefix?: string;
     callbacks?: {

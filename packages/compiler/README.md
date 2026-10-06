@@ -1,6 +1,24 @@
+<p align="center">
+  <a href="https://effnd.tech/css-zero/">
+    <img alt="css-zero" src="https://effnd.tech/css-zero/logo.svg" height="256px" />
+  </a>
+</p>
+
+<h1 align="center">CSS-Zero</h1>
+
+<div align="center">
+
+[![license](https://badgen.net/static/license/Apache%202.0/blue)](https://sourcecraft.dev/msabitov/css-zero/packages/compiler/browse/LICENSE?rev=master)
+[![npm latest package](https://badgen.net/npm/v/@css-zero/compiler)](https://www.npmjs.com/package/@css-zero/compiler)
+
 # @css-zero/compiler
 
 > **Reuse-sharpened CSS-in-TS with zero runtime.**
+
+- [Docs](https://effnd.tech/css-zero/)
+- [GitHub](https://github.com/msabitov/css-zero)
+- [SourceCraft](https://sourcecraft.dev/msabitov/css-zero)
+- [NPM](https://www.npmjs.com/package/@css-zero/compiler)
 
 `@css-zero/compiler` is the **build-tool-agnostic compile engine** of CSS-Zero. It turns CSS-in-TS contract modules (`.css.ts` / `.css.js`) into plain string constants and CSS, with **zero runtime** in the browser. It knows nothing about Vite, Rollup or webpack — a thin plugin wires it into a specific build tool.
 
@@ -32,7 +50,7 @@ The surface is deliberately small — one method per core task. Everything else 
 
 ## How it works in a typical build
 
-The compiler is driven by a plugin (e.g. [`@css-zero/vite-plugin`](../vite-plugin/README.md)):
+The compiler is driven by a plugin (e.g. [`@css-zero/vite-plugin`](https://www.npmjs.com/package/@css-zero/vite-plugin)):
 
 ```text
 createCompiler({ prefix, callbacks })
@@ -51,7 +69,7 @@ createCompiler({ prefix, callbacks })
 
 ## Usage outside Vite
 
-`@css-zero/compiler` is bundler-agnostic. Create a `Compiler`, call `consume` per module with a `ContractGraphContext` that resolves/loads contract imports, then `produce` and emit. For Vite, use [`@css-zero/vite-plugin`](../vite-plugin/README.md), which does all of this.
+`@css-zero/compiler` is bundler-agnostic. Create a `Compiler`, call `consume` per module with a `ContractGraphContext` that resolves/loads contract imports, then `produce` and emit. For Vite, use [`@css-zero/vite-plugin`](https://www.npmjs.com/package/@css-zero/vite-plugin), which does all of this.
 
 ## License
 

@@ -2,6 +2,7 @@
  * css-zero/compiler — build-tool-agnostic compile engine
  */
 export { createCompiler } from './compile';
+export { SCOPE } from './constants';
 export type {
     CSSChunk,
     ChunkType,

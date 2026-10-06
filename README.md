@@ -1,6 +1,24 @@
+<p align="center">
+  <a href="https://effnd.tech/css-zero/">
+    <img alt="css-zero" src="https://effnd.tech/css-zero/logo.svg" height="256px" />
+  </a>
+</p>
+
+<h1 align="center">CSS-Zero</h1>
+
+<div align="center">
+
+[![license](https://badgen.net/static/license/Apache%202.0/blue)](https://sourcecraft.dev/msabitov/css-zero/packages/core/browse/LICENSE?rev=master)
+[![npm latest package](https://badgen.net/npm/v/@css-zero/core)](https://www.npmjs.com/package/@css-zero/core)
+
 # CSS-Zero
 
 > **Reuse-sharpened CSS-in-TS with zero runtime.**
+
+- [Docs](https://effnd.tech/css-zero/)
+- [GitHub](https://github.com/msabitov/css-zero)
+- [SourceCraft](https://sourcecraft.dev/msabitov/css-zero)
+- [NPM](https://www.npmjs.com/package/@css-zero/core)
 
 CSS-Zero is a **zero-runtime CSS-in-TS** library. Utilities return only **strings or flat objects of strings** — no runtime, no style tables, no `get()/set()` resolvers, no hydration. CSS is generated **at build time** by the compiler, utility calls are substituted with string constants, and the library import is stripped from the output.
 
@@ -43,7 +61,7 @@ The compiler rewrites these calls to string constants and emits CSS chunks. The 
 ## Quick start
 
 ```bash
-pnpm add @css-zero/core @css-zero/vite-plugin
+npm i @css-zero/core @css-zero/vite-plugin
 ```
 
 ```ts

@@ -5,8 +5,3 @@
 ### Major Changes
 
 - The First release
-
-### Patch Changes
-
-- Updated dependencies
-    - @css-zero/core@1.0.0

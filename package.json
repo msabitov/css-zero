@@ -15,15 +15,15 @@
         "dev:react": "vite --config examples/vite-react/vite.config.ts examples/vite-react",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "changeset": "changeset",
-        "version-packages": "changeset version",
-        "release": "pnpm build && changeset publish"
+        "publish:compiler": "pnpm --filter @css-zero/compiler publish",
+        "publish:core": "pnpm --filter @css-zero/core publish",
+        "publish:vite-plugin": "pnpm --filter @css-zero/vite-plugin publish",
+        "publish:all": "pnpm build && pnpm publish:compiler && pnpm publish:core && pnpm publish:vite-plugin"
     },
     "devDependencies": {
         "@babel/parser": "^7.24.0",
         "@babel/traverse": "^7.24.0",
         "@babel/types": "^7.24.0",
-        "@changesets/cli": "^2.27.0",
         "@types/babel__traverse": "^7.28.0",
         "@types/node": "^26.0.0",
         "magic-string": "^0.30.0",
