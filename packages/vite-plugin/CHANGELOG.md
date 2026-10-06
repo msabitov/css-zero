@@ -1,5 +1,12 @@
 # @css-zero/vite-plugin
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies
+    - @css-zero/compiler@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes

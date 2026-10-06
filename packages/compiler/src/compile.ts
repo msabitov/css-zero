@@ -184,8 +184,13 @@ export class Compiler {
      * chunk), so styles follow the chunk that uses them
      */
     produce(code?: string): string {
-        const used = code ? this.findKeys(code) : undefined;
+        const used = code ? this.findKeys(code, this._cssByToken) : undefined;
         const hasFilter = !!used;
+        // Raw tokens present in the JS chunk (not filtered by the CSS map).
+        // Complex chunks may depend on selectors that carry no CSS of their own
+        // (e.g. a bare `classSelector()`), so they must be matched against the
+        // full token set rather than the CSS-backed map.
+        const rawUsed = code ? this.findKeys(code) : undefined;
 
         const simpleChunks = Array.from(this._cssByToken.values());
         const byType: Partial<Record<ChunkType, string[]>> = {};
@@ -199,8 +204,36 @@ export class Compiler {
         ).flat();
         const parts: string[] = [];
         for (const chunk of complexChunks) {
-            if (this.isComplexActive(chunk, used ?? EMPTY_SET, hasFilter))
+            if (this.isComplexActive(chunk, rawUsed ?? EMPTY_SET, hasFilter))
                 parts.push(chunk.css);
+        }
+
+        // Tokens can be referenced inside emitted CSS (variables, animations,
+        // layers, fonts, …) even when they never appear in the JS code — e.g. a
+        // class rule uses `animation: o-a_1` or `var(--o-v_1)`. Scan the emitted
+        // CSS for such tokens and pull in their chunks, transitively, so the
+        // filtered output stays self-contained.
+        if (hasFilter) {
+            const re = getKeyRegExp(this._prefix);
+            let emittedCss = [
+                ...simpleChunks
+                    .filter((c) => used!.has(c.key))
+                    .map((c) => c.css),
+                ...parts,
+            ].join('\n');
+            let added = true;
+            while (added) {
+                added = false;
+                for (const token of findKeysByRegExp(emittedCss, re)) {
+                    if (used!.has(token)) continue;
+                    const chunk = this._cssByToken.get(token);
+                    if (!chunk) continue;
+                    (byType[chunk.type] ??= []).push(chunk.css);
+                    used!.add(token);
+                    emittedCss += '\n' + chunk.css;
+                    added = true;
+                }
+            }
         }
 
         return minifyCss(
@@ -217,12 +250,16 @@ export class Compiler {
     }
 
     /**
-     * Unique used tokens, filtered by the CSS map
+     * Unique used tokens. When `map` is provided, only tokens present in that
+     * map are kept; when omitted, every token found in the source is returned.
      */
-    private findKeys(source: string, map = this._cssByToken): Set<string> {
+    private findKeys(
+        source: string,
+        map?: Map<string, CSSChunk>
+    ): Set<string> {
         const re = getKeyRegExp(this._prefix);
         return findKeysByRegExp(source, re).reduce((used, token) => {
-            if (map.has(token)) used.add(token);
+            if (map === undefined || map.has(token)) used.add(token);
             return used;
         }, new Set<string>());
     }

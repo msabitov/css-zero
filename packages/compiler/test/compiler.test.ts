@@ -303,4 +303,26 @@ describe('Compiler — produce(code) (tree-shaking by chunk)', () => {
         // Only one dep → the conditional chunk is dropped.
         expect(compiler.produce('"o-s_1"')).not.toContain('.a > .b');
     });
+
+    it('pulls in tokens referenced only from emitted CSS (animation, variable)', async () => {
+        const source = `
+            import { className, animation, variable } from '@css-zero/core';
+            export const spin = animation({ from: { transform: 'rotate(0)' }, to: { transform: 'rotate(360deg)' } });
+            export const [brand, brandRef] = variable('#2b6cb0');
+            export const btn = className({ animation: spin, color: brandRef });
+        `;
+        const { compiler } = await compileModule(source, '/virtual/css-only.css.ts');
+
+        // Only the class token reaches the JS chunk; animation and variable
+        // tokens appear solely inside the emitted class CSS.
+        const css = compiler.produce('"o-s_1"');
+        // The class rule itself.
+        expect(css).toContain('.o-s_1');
+        // The referenced animation keyframes are pulled in.
+        expect(css).toContain('@keyframes o-a_1');
+        expect(css).toContain('rotate(360deg)');
+        // The referenced variable @property is pulled in.
+        expect(css).toContain('@property --o-v_1');
+        expect(css).toContain('initial-value:#2b6cb0;');
+    });
 });

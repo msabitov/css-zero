@@ -1,5 +1,11 @@
 # @css-zero/compiler
 
+## 1.0.2
+
+### Patch Changes
+
+- Scan emitted CSS for tokens referenced only from CSS (variables, animations, layers, fonts, …) and pull in their chunks transitively, so filtered output stays self-contained even when a CSS rule references a token that never appears in JS code.
+
 ## 1.0.1
 
 ### Patch Changes
